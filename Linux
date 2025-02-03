@@ -2229,3 +2229,479 @@ first press
 In order to run #ethtool we need to be root
 
 #ethtool enpOs3(name of the first device in ifconfig)==== Link mode / duplex / Speed
+
+NIC Bonding: Linux
+Network Interface Card Bonding (NIC Bonding) – is also known as network bonding . It can be defined as the aggregation or combination of multiple NIC into a single bond interface.
+
+Its main purpose is to provide high availability and redundancy
+
+To do Nic Bonding
+
+You create Nic1 file and then Nic2 file and then link them in another file bond0 and we need to start the network
+
+#systemctl restart network
+
+Before changing the network address first
+
+So that we can revert back Take the snapshot and click on take and click on ok
+
+Click on settings -> go to network -> adapter2 ->Enable Network adapter -> select bridged adapter -> click ok
+
+click start of VM -> login -> open terminal -> ifconfig
+
+we will see four networks
+
+to list the bonding module
+
+#modinfo bonding
+
+In description if you see “Ethernet Channel Bonding Driver, v3.7.1″== tat means you already have driver installed which is”modprobe”
+
+However if you don’t have it Installed Bonding driver by
+
+#modprobe bonding
+
+Next Step create a file “ifcfg-bond0”. === bondzero that means
+
+#vi /etc/sysconfig/network-scripts/ifcfg-bond0
+
+copy this
+
+DEVICE=bondzero
+
+TYPE=Bond
+
+NAME=Bondzero
+
+BONDING_MASTER=yes
+
+BOOTPROTO=none or static
+
+ONBOOT=yes (to enable when system reboots)
+
+IPADDR=192.168.1.80(assign a unique ip address which is not assigned to anyone and you can check that by pinging if its not reachable then you can assign)
+
+Advertisement
+
+NETMASK=255.255.255.0
+
+GATEWAY=192.168.1.1
+
+BONDING_OPTS=”mode=5 miimon=100″ (miimon = speed and mode = state)
+
+:wq!
+
+=>next step
+
+#cd /etc/sysconfig
+
+#cd network-scripts
+
+#vi ifcfg-enp0(zero)s3
+
+delete the entire content
+
+insert this
+
+TYPE=Ethernet
+
+BOOTPROTO=none
+
+DEVICE=enp0(zero)s3
+
+ONBOOT=yes
+
+HWADDR=08:00:27:c3:0e:28 (here in ifconfig the first ethernet Mac address)
+
+MASTER=bond0(zero)
+
+SLAVE=yes
+
+:wq!
+
+#cp enp0(zero)s3 enpo(zero)s8
+
+#vi enpo(zero)s8
+
+change HWADDR i.e MAC address
+
+:wq!
+
+restart the netwrok
+
+#systemctl restart network
+
+do ifconfig
+
+#ifconfig
+
+you will see bond0=== Master ,,,enp0s3 === slave and enp0s8====slavee
+
+take the bond0(zero) IP and enter in putty and try to connect
+
+giving your username and password
+
+and then
+
+In that machine you can call
+
+#cat /proc/net/bonding/bond0(zero)
+
+Now power off your VM and change your network setting to disable the second network .. click ok
+
+click on your snapshot and click restore (uncheck create current state of the machine)
+
+Network Utilities: Linux
+Network Manager commands
+
+-nmtui
+
+-nmcli
+
+-nm-connection-editor
+
+GNOME Settings
+
+Network Manager is a service that provides set of tools designed specifically to make it easier to manage the networking configuration on Linux Systems and is the default network management service on RHEL8 and RHEL9
+
+it makes the network management easier
+
+nmcli-short for network management command line interface. This tool is useful when access to graphical environment is not available and can also be used within scripts to make network configuration changes
+
+nmtui- short for network manager text user interface. This tool can be run within any terminal window and allows changes to be made by making menu selection and entering data
+
+nm-connection-editor – A full graphical management tool providing access to the most of the NetworkManager configuration options. It can only be accessed through desktop or console
+
+GNOME settings – The network screen of the GNOME desktop settings application allows basic network management tasks to be performed
+
+First create your VM and then after creating VM and create a snapshot . then go to settings and in settings network2 bridged adapter and enable it. Login
+
+#ifconfig. === is adapter added
+
+#nmtui === text editor will open => edit on connection => Wired Connection1 but not enps03 === delete wired Connection1 ===now it will have enp0s3 ===back === quit
+
+#ifconfig
+
+Both adapters is there and one will be active with ip and another will not have ip
+
+#Now go to enps03 and with inet or ip address and open in putty
+
+In putty session
+
+#nmtui and you will see the same thing there also
+
+come to the same window
+
+again do
+
+#nmtui and delete both the adapter only virbr0 leave it
+
+Both the adapter will be there but both will not have inet or ip address
+
+#nmtui and say add a connection
+
+select the type of connection you wish to create
+
+select Team
+
+Team1 —name
+
+hit tab
+
+click on add and enter === select ethernet and enter === profile name (enp0s3) ==Device (enp0s3) === Create ==
+
+it will create enp0s3
+
+Again click on add === profile name (enp0s8) === device(enp0s8) === create ===
+
+it will create enp0s8
+
+once you do you will see both of them
+
+down you will see
+
+IPV4 configuration. === automatic (hit enter and change to manual and you can change the ip address as we did it for bonding)
+
+IPV6 configuration
+
+But I will keep it automatic and hide
+
+Also Automatically connect and Available to all users === enable it if its not enable (cross means enabled)
+
+press ok
+
+you will see team1
+
+and now go back and quit
+
+and
+
+#ifconfig
+
+and you will see a new adapter
+
+nm-team with inet and ethernet
+
+Lets verify if we can verify and login to this machine with that inet
+
+go to putty session and try to login if its working and if you can see command prompt and you will see with root
+
+This is the use of nmtli
+
+#nmcli
+
+#nmcli con show (it will show all the adapters that )
+
+to modify connection
+
+#nmcli connection modify enp0s3 ipv4.addresses === to modify the ipv4 addresses
+
+#nmcli connection modify enpos3 ipv4.gateway === to modify the ipv4 gateway
+
+#nmcli connection modify enp0s3 ipv4.method === to modify the method manual or automatic
+
+#nmcli connection modify enpos3 ipv4.dns. === to modify the 8.8.8.8
+
+#nmcli connection down enp0s3 && nmcli connection up enp0s3
+
+#ip address show enp0s3
+
+now do
+
+#ifconfig
+
+How to assign unique ip address using nmcli
+
+#nmcli device
+
+to assign any ip address you have to make sure that it is assigned to any other network
+
+#nmcli connection modify enp0s3 ipv4.addresses 10.253.1.211/24
+
+#nmcli connection modify enp0s3 ipv4.gateway 10.253.1.1
+
+#nmcli connection modify enp0s3 ipv4.method manual
+
+#nmcli connection modify enp0s3 ipv4.dns 8.8.8.8
+
+if we want two commands to be executed simultaneously we use
+
+#nmcli connection down enp0s3 && nmcli connection up enp0s3
+
+you can use to execute the command one by one
+
+to see the assigned ip address
+
+#ip address show enp0s3
+
+To add the ip address to the adapter(secondary ip) this is only for secondary ip
+
+#nmcli connection modify enp0s3 +ipv4.addresses 10.0.0.211/24
+
+To reload the network i.e bringing the network down and then network up
+
+#nmcli connection reload
+
+reboot the system
+
+#systemctl reboot
+
+#ip address show. // this will show what ip has been assigned to the adapter if it has two inets it will show
+
+This is the way you can use “nmcli” to change your network configuration
+
+================================
+
+nm-connection-editor is only possible in GUI
+
+#nm-connection-editor
+
+when you click on + when the editor opens you will see most of the things
+
+its same as nmtui its better to use nmtui
+
+=================
+
+GNOME Settings
+
+go to Applications => System Tools => Settings ( This is called GNOME Settings) => in Settings => Go to network and you can modify the adapter settings
+
+You can shutdown the machine by saying
+
+#shutdown
+
+download a file: Linux
+to download a file from the web browser in linux you use
+
+#wget urllink
+
+url link can be tar, gz can be txt and can be anything
+
+how to know what content is there in the URL also know the url ip address: Linux
+#curl https://rekindles.netlify.app ==== will display the html code if its reachable
+
+also if you want to download the file from curl command
+
+#curl -O https://rekindles.netlify.xyz.txt. === will download
+
+#ping http://www.google.com === to check if its reachable
+
+ping gives you the ip address of the url
+
+then you can check which link it is connected to
+
+#nslookup ip (by ping)
+
+ss command: Linux
+ss command is used for network visibility and identify problem connections
+
+socket is a like connection that allows two computer to talk with each other over a network and allows to transfer packets between them
+
+ss command shows various type of sockets like
+
+TCP, UDP and UNIX
+Displays source and destination Ip addresses , show port number. Indicates connection state (eg listening or established)
+
+TCP (Transmission Control Protocol) – It is a set of rules that ensures data is sent successfully between two computers over the internet
+
+used in web browsing, email and file transfers
+
+UDP(user datagram protocol) – it is a way of sending data over the internet without checking if it arrives correctly
+
+does not wait for acknowledgement
+
+but less reliable
+
+used in Live video streaming
+
+UNIX – it is a way for programs on the same computer to talk to each other
+
+Uses a special file for message exchange
+
+Used in database, web server and local system service
+
+#ss
+
+it will display u_str == UNIX ,
+
+if ss is not there you have to install using dnf command
+
+Local Address == Ip and Port of local machine
+
+Peer address == IP and port of remote machine
+
+active tcp connection
+
+#ss -t
+
+active udp connection
+
+#ss -u
+
+to see unix
+
+#ss -x
+
+to see all listening sockets
+
+#ss -l
+
+-t = tcp -l = listening -n = numerical
+
+#ss -t -l -n
+
+File Transfer Protocol: Linux
+File transfer protocol is a standard network protocol used for transfer of computer files between a client and server on a computer network. FTP is built on a client-server model architecture using separate control and data connection between client and server.
+
+Protocol = set of rules used by computers to communicate.
+
+Default FTP port = 21
+
+for this to work we need two linux machines
+
+Install and Configure FTP on remote server
+
+here you should act as a root when doing the work
+
+#become root
+
+#rpm -qa| grep ftp
+
+#ping http://www.google.com
+
+#yum install vsftpd
+
+#vi /etc/vsftpd/vsftpd.conf (make a copy first)
+
+In the file make the following changes
+
+##disable anonymous login ##
+
+to search for anonymous_enable
+
+we use /anonymous_enable
+
+anonymous_enable=NO
+
+##uncomment##
+
+ascii_upload_enable=YES
+
+ascii_download_enable=YES
+
+##uncomment##
+
+ftpd_banner =Welcome to UNIXMEN FTP Service
+
+##Add at the end of the file##
+
+use_localtime=YES
+
+start the service and enable the service
+
+#systemctl start vsftpd
+
+#systemctl enable vsftpd
+
+#systemctl stop firewalld. // this is used so that if firewall is there it won’t let other system to connect
+
+#systemctl disable firewalld
+
+make sure you create the user account on the ftp server if you do not have to
+
+#useradd
+
+INSTALL FTP CLIENT ON THE CLIENT SERVER
+#become root
+
+#yum install ftp
+
+#su – name ==== Here it should be a user name and this username should be added in the server by calling user add
+
+create a file called kruger
+
+#touch kruger
+
+Commands to transfer files to the FTP Server
+
+#ftp (server ip address)
+
+Enter username and password
+
+after entering password and username . We hit bi (binary)
+
+bi
+
+we hit hash = to see the progress
+
+hash
+
+we hit put kruger
+
+put kruger
+
+once its transferred simply type
+
+bye
+
+(to get out of the process)
