@@ -1,0 +1,115 @@
+Linux
+
+Installing Virtual Box: Linux
+run http://www.virtualbox.org and download for MacOS platform
+
+go to google.com and search for “Broadcom” -> “support and services” ->”Document downloads and support” ->”Customer Support Portal” ->
+”Register” -> “Login” -> “After login a new option appearing download and cloud icon right next your name”-> In cloud click ->
+“Vmware Cloud Foundation” -> Dashboard -> “My Downloads” -> “Vmware workstation player” -> choosing the latest version will 
+not allow you to download -> Choose the past version like if latest is 17 then 16 try to download -> after downloading follow the instruction keep everything static
+
+Now open oracle virtual box -> click on new ->Give name -> folder no need to touch -> ISO image leave as it -> Type linux -> 
+Version Linux 5.x 64 -> Hardware -> Ram 2gb -> processor leave as it is -> Hardware 20gb -> Settings (Network) ->
+Changed to bridged Adapter( Done and also we need to download osi)
+
+Using virtual Machine -> create a new virtual machine -> I will install the OS later-> 
+CentOS 64-bit ->store virtual disk at single file -> customise hardware -> network adapter -> bridged adapter -> finish
+
+download Linux ubuntu/kali/centos(you can use any version) -> download centos 7 -> 
+centos.org -> x86_64 -> pick up the first mirror -> iso with highest size ->
+
+In oracle virtual box -> In the created Virtual box -> select start up disk -> click on add -> 
+click open -> choose -> start -> Install OS7 (up and down arrow)
+
+In Vmware -> right click on VMware -> setting -> CD/DVD -> use ISO image -> ok -> green button or play virtual machine
+
+Hit Alt + ctrl or right ctrl key on your keyboard and you will get mouse back -> In software selection select -> Server with GUI -> done
+
+Installation Destination -> select -> click on it and click again
+
+click on network & host name -> specify the host name -> click apply -> click on configure -> general -> 
+automatically connect to network when its available -> save -> automatically will on -> begin installation -> 
+create root password -> admin password -> also create user -> click reboot -> license information -> 
+click on license information -> finish configuration -> created login screen -> click double screen at bottom -> 
+next -> next -> location service off -> start using centOS linux -> right click open terminal -> installation of linux done
+
+
+aws free account -> free cloud computing – aws free tier -> create free account -> compute -> sign in -> 
+click EC2 -> select region at top (nearest region) -> launch instance -> give name -> My linuxVm -> browse more AMIs ->
+select red hat -. Give name -> create a key pair – attach this key pair to putty -> configure storage ->20 -> launch instance
+
+Download Putty Client on windows machine -> In host Name or Ip address give linux machine ip address -> load -> open -> allow you to connect through command line
+
+Windows 10 or newer version(ssh build in client)-> command prompt -> ssh Ipaddress of linux machine -> you will connect with linux machine
+
+if you are using windows10 and above you do not have to install putty -> then command prompt then use ssh
+
+putty allows you to connect windows system to linux system remotely
+
+if you are trying to connect linux from Mac you do not need to install putty
+
+open a terminal on your Mac run following command # ssh -l iafzal(username of linux machine) linuxipaddress
+
+download putty for windows for 64 bit
+
+ifconfig or ip adds – in linux terminal will give me the ip address
+
+first interface – emp0s3(contains your ip address i.e init) and second Interface -Lo(ignore) and third interface – vm (ignore)
+
+Also when you connect with putty with linux you have to give username and password you gave while creating the linux user.
+
+root@MyfirstLinuxVM ~]#—- root is username and MyFirstLinuxVM is password
+
+Ctrl + C === to get linux prompt
+
+whoami — root
+
+hostname — MyfirstLinux
+
+Ctrl + C == exit
+
+top — to get information
+
+ls – l |(pipe)
+
+# cd / (root directory ) = because everything starts from root directory
+
+ls -l
+
+/boot – contains files that is used by boot loader
+
+/root – root user home directory not same as /
+
+/dev – system devices (eg disk, cdrom, speakers, flash drive, keyboard etc)
+
+/etc – configuration files ( if you change any files of this take a back up)
+
+/bin – /usr/bin – everyday user commands
+
+/sbin – /usr/sbin – system /filesystem commands
+
+/opt – optional add on application — installing oracle or sap are installed in /opt
+
+/proc – running processes (only exist in memory) ( like processes running now)
+
+/lib – usr/lib – c programming library files needed by commands and apps
+
+strace -e open pwd – which library files is used for which command you can use this
+
+/tmp – directory for temporary files (create temp file)
+
+/home – directory for user
+
+/var – system logs
+
+/run – system daemons that starts very early to store temporary runtime files like PID files
+
+/mnt – to mount external file system (NFS)
+
+/media – cd rom mounts
+
+pwd – present working directory
+
+su – ( to get the super user)
+
+file info
