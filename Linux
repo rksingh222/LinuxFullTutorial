@@ -2707,3 +2707,30 @@ once its transferred simply type
 bye
 
 (to get out of the process)
+
+Secure Copy Protocol: Linux
+Secure Copy Protocol or SCP helps to transfer computer files security from a local to remote host. It is somewhat similar to FTP(file transfer protocol) but it adds security and authentication.
+
+Protocol – set of rules used by computers to communicate
+
+Default SCP Port = 22(Same as SSH)
+
+for this lecture we need 2 Linux Machines
+
+client A ======= Server B ( we used SCP)
+
+SCP commands to transfer files to remote server
+
+== Login as Yourself in the client machine
+
+== touch jack ( In client machine)
+
+== now send the jack file in the remote server by the bellow command
+
+== scp jack jakemiller@serveripaddress:/home/jakemiller. ( /home/jakemiller = is the directory name)
+
+== jakemiller is the username
+
+=== enter username and password
+
+and this way you will be able to transfer files
