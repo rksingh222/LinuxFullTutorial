@@ -1,4 +1,4 @@
-Backup 5 feb 2025
+Backup 6 feb 2025
 
 Linux
 
@@ -2734,3 +2734,85 @@ SCP commands to transfer files to remote server
 === enter username and password
 
 and this way you will be able to transfer files
+
+rsync remote utilisation: Linux
+rsync is a utility for efficiently transferring and synchronising files within the same computer or to a remote computer by comparing the modification times and size of files.
+
+rsync is a lot faster than ftp or scp
+
+this utility is mostly used to backup the files and directories from one server to another.
+
+default rsync port = 22 (same as SSH)
+
+for this lecture we need 2 Linux Machines
+
+#rsync options source destination
+
+#yum install rsync
+
+#apt-get install rsync
+
+#tar cvf backup.tar
+
+#mkdir /tmp/backups
+
+#rsync -zvh backup.tar /tmp/backups
+
+#mkdir /tmp/backups
+
+here jakemiller@192.168.1.x:/tmp/backups === is a server directory
+
+#rsync -avz backup.tar jakemiller@192.168.1.x:/tmp/backups
+
+rsync a file from a remote machine
+
+#touch serverfile
+
+#rsync -avzh jakemiller@192.168.1.x:/home/jakemiller/serverfile /tmp/backups
+
+//do this step in client
+
+#rpm -qa | grep rsync
+
+#tar cvf backup.tar .
+
+ls -ltr
+
+#mkdir /tmp/backups
+
+#rsync -zvh backup.tar /tmp/backups
+
+#cd (to come in home directory
+
+#rsync -azvh /home/jakemiller/ /tmp/backups/
+
+do this in server machine
+
+#cd /tmp
+
+#mkdir backups
+
+#ls -ltr
+
+go to client machine
+
+#rsync -avz backup.tar jakemiller@192.168.1.58:/tmp/backup(server machine)
+
+give the password of the remote machine and it will be transferred
+
+Go to server
+
+#touch serverfile
+
+#ls -ltr
+
+go to client
+
+#rsync -avzh jakemiller@192.168.1.58:/home/iafzal/serverfile /tmp/backups
+
+save in /tmp/backups in client
+
+and server is here jakemiller@192.168.1.58:/home/iafzal/serverfile
+
+
+
