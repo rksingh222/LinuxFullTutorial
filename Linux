@@ -2814,5 +2814,38 @@ save in /tmp/backups in client
 
 and server is here jakemiller@192.168.1.58:/home/iafzal/serverfile
 
+back up on 6th
+
+System updates and Repos: Linux
+yum and dnf is similar commands when yum doesn’t work then dnf works
+
+apt-get is also in replacement of yum and dnf .
+
+dnf uses the directory /etc/yum.repos.d
+
+rpm (redhat packet manager) – works when the package is already downloaded in your system and then you can install it locally by running the command rpm
+
+dnf – downloads the package and installs it
+
+#dnf install chrony
+
+if I want to check if some package is already installed in my system
+
+#rpm -qa // list of packages that are installed
+
+#rpm -qa | wc -l // number of packages installed
+
+the package which is associated with dns is bind
+
+#rpm -qa | grep bind
+
+#dnf install bind
+
+whatever rpm you have download to install it
+
+#rpm -ihv /tmp/package.rpm
+
+#rpm -e package name // to uninstall the package
+
 
 
