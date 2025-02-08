@@ -2848,4 +2848,34 @@ whatever rpm you have download to install it
 #rpm -e package name // to uninstall the package
 
 
+System Upgrade and Patch Management: Linux
+Type of upgrade in Linux major version 7, 8, 9
+
+to check which version of linux we are using we can say
+
+#uname -a or
+
+#cat /etc/redhat-release
+
+Minor version upgrade is 8.1, 8.2. = 9.0, 9.1
+
+Major version can not be upgraded from dnf
+
+Minor version can be upgraded from dnf
+
+To upgrade to a newer version i.e major you have to back up the entire server build a new server from scratch and transfer files
+
+To upgrade
+
+#dnf update -y
+
+lets say you have chrony and http package and using dnf to upgrade it will delete the previous package give the new package
+
+but update will preserve the package
+
+to get ip
+
+#ip a
+
+
 
