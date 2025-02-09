@@ -2877,5 +2877,106 @@ to get ip
 
 #ip a
 
+How to install packages in your local repository or how to create local repository from your dvd: Linux
+a repository is something where all your packages are stored. then you can download the package and install you wish to.
+
+You have to install your packages when you have internet. if you don’t then the Local repository comes into picture.
+
+the command to create a local repo is
+
+#createrepo_c
+
+create a snapshot of your linux machine.
+
+become a root by
+
+#su –
+
+first install the package
+
+#dnf install createrepo_c
+
+Now you will see devices menu in your operating system./ optical drive / choose a disc file choose centos IOS image where I have stored the package .
+
+to see if it has mounted on your linux machine we can call this command
+
+#df -h
+
+if its not mounted you can run this command
+
+#mount /dev CD-ROM /the place where you want to mount
+
+then create a directory
+
+#mkdir localrepo
+
+#ls -ltr (if its there)
+
+#df -h
+
+#cd /run/media/jakemiller/centos=-X86_64
+
+hit enter and you will move inside this directory
+
+#ls -ltr
+
+# cd AppStream
+
+#ls -ltr
+
+#cd packages
+
+To get the disk space of the current location we use this command
+
+#du -sh .
+
+check whether your current linux machine has that much memory
+
+#df -h
+
+to copy everything of the packages to the localrepo which we created
+
+# cp -rv /run/media/jakemiller/centos/Appstream/packages/* /localrepo/
+
+so everything of short of repos is stored in “youm.repos.d”
+
+before removing everything from this you need to have snapshot
+
+# cd. /etc/yum.repos.d/
+
+#rm -rf /etc/yum.repos.d/*
+
+now inside “yum.repos.d”
+
+do this
+
+#vi local.repo
+
+provide this default value
+
+[CentOS9]
+
+name = CentOS9
+
+baseurl=file:///localrepo/
+
+enabled=1
+
+gpgcheck=0
+
+save and exit
+
+Inside “yum.repos.d”
+
+#createrepo_c /localrepo/
+
+#dnf clean all
+
+#dnf repolist all
+
+now you can install package from local repostiory
+
+#dnf install httpd
+
 
 
