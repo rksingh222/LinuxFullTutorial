@@ -2978,5 +2978,68 @@ now you can install package from local repostiory
 
 #dnf install httpd
 
+Advance Package Management: Linux
+Install corn shell
 
+#rpm -qa | grep ksh
+
+#ip a. ( to get the ip address)
+
+#dnf install ksh*
+
+#rpm -qa|grep ksh
+
+to remove it
+
+#dnf remove ksh*
+
+Go to bing.com
+
+download centOS
+
+select the link which has rpm on it and it will be a binary package
+
+#wget (Link which you have to download)
+
+download and then
+
+#pwd
+
+#ls -ltr ( there is the package which we have downloaded)
+
+to install it
+
+#rpm -ivh “package name which we have installed”
+
+#rpm -qa | grep ksh
+
+to get the information about the package
+
+#rpm -qi “package name”
+
+to remove the package we do
+
+#rpm -e “package name”
+
+to find which configuration file we need to edit
+
+#rpm -qa “package name”
+
+to edit the configuration file of the package
+
+#rpm -qc “name of the package”
+
+which package this command belongs to
+
+#which ksh
+
+lets suppose it will give the output
+
+/usr/bin/ksh
+
+to know the command which is associated with a package
+
+#rpm -qf /usr/bin/ksh
+
+back up on 10th
 
