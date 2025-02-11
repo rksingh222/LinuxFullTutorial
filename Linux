@@ -3043,3 +3043,28 @@ to know the command which is associated with a package
 
 back up on 10th
 
+Rollback update and patches: Linux
+#yum install screen
+
+#rpm -qa | grep screen
+
+#yum history ==== will tell the latest package installed and will give the ID of the package also
+
+to remove the package installed we can do
+
+#yum history undo 17
+
+when you will try to find this package it wouldn’t be there
+
+#rpm -qa | grep screen
+
+#yum upgrade will remove the obsolete packages and hence you cannot roll back
+
+we do yum update
+
+#yum update
+
+#yum history undo 18
+
+back up on 11th
+
