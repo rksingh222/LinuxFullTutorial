@@ -3068,3 +3068,65 @@ we do yum update
 
 back up on 11th
 
+SSH and TELNET: Linux
+these commands they run in linux to accept incoming connections from outside
+
+Telnet = unsecured connection between computers
+
+ssh = secured
+
+to know the ip address of Mac machine we can call this
+
+#ipconfig getifaddr en0
+
+or
+
+#ipconfig getifaddr en1
+
+to connect to your own machine through ssh or putty you can give your own ip address or Localhost
+
+#ssh localhost
+
+In Mac it won’t work so you have to go
+
+SystemSettings -> Search For sharing -> Remote Login ->(make it on)
+
+to exit you can say
+
+#exit
+
+to check whether ssh process is running we can say
+
+#ps -ef | grep sshd
+
+it will show /usr/sbin/sshd
+
+this is the process that is actually listening for all the incoming traffic. If I stop this process I won’t be able to login to the machine
+
+lets stop sshd
+
+#systemctl stop sshd
+
+if now you will do
+
+#ps -ef | grep sshd
+
+you won’t see the previous output
+
+if we login to remote machine using putty or ssh it won’t work the connection will be refused
+
+Now we can start this process
+
+#systemctl start sshd
+
+now if you do
+
+#ps -ef | grep sshd
+
+it will show the previous output
+
+another way to get the output is
+
+#systemctl status sshd
+
+back up on 13th
