@@ -3130,3 +3130,201 @@ another way to get the output is
 #systemctl status sshd
 
 back up on 13th
+
+Domain Name System – DNS: Linux
+PTR Record === IP to HostName
+
+A Record === HostName to IP
+
+CNAME Record ===. HostName to HostName
+
+Files
+
+/etc/named.conf === name daemon (named means)
+
+/var/named
+
+Service
+
+#systemctl restart named
+
+Go to Linux Machine
+
+#whoami
+
+#ip a
+
+#hostname
+
+#su –
+
+#rpm -qa | grep bind
+
+#dnf install bind bind-utils -y
+
+after installation
+
+#rpm -qa | grep bind
+
+you will see the package has been installed
+
+#vi /etc/named.conf
+
+go to options In the place of
+
+listen-on port 53 { 127.0.0.1; put your ip address; and then space and then braces and then semi colon
+
+after that go down in zone section which is after logging
+
+after zone in place of dot write “lab.local”
+
+In place of type hint remove hint with master
+
+and type file “forward.lab”
+
+and then write allow-update { none ; } ;
+
+insert this after the first zone also the ip address is given in reverse format for example if it is 192.168.1.xxxx that’s ist
+
+zone “1.168.192.in-addr.arpa” IN{
+
+type master;
+
+file “reverse.lab”;
+
+allow-update{none;};
+
+};
+
+save this file
+
+go to this directory
+
+#cd /var/named
+
+Inside named file
+
+#touch forward.lab
+
+#touch reverse.lab
+
+#vi forward.lab
+
+//insert below text in forward.lab
+
+$TTL 86400
+
+@ IN SOA masterdns.lab.local. root.lab.local. (
+
+2011071001 ;Serial
+
+3600 ;Refresh
+
+1800 ;Retry
+
+604800 ;Expire
+
+86400 ;Minimum TTL
+
+)
+
+@     IN NS masterdns.lab.local.
+
+@     IN A      192.168.100.153 // ip address of your machine
+
+masterdns    IN A      192.168.100.153. //ip address of your machine
+
+clienta     IN A      192.168.1.240
+
+clientb     IN A      192.168.1.241
+
+save it and now restart the service which is associated with named
+
+#systemctl start named
+
+#systemctl enable named
+
+disable the firewall
+
+#systemctl stop firewall
+
+#systemctl disable firewall
+
+if you want to disable firewall then you have to configure your firewall to listen to port 53
+
+now give the permission /var/named
+
+#chgrp named -R /var/named
+
+#chown -v root:named /etc/named.conf
+
+“restorecon” is a command used to reset the Security-Enhanced Linux (SELinux) context of a file or directory back to its default setting,
+
+#restorecon -rv /var/named
+
+#restorecon. /etc/named.conf
+
+to test the zone file and configuration file for any syntax error we type this
+
+#named-checkconf /etc/named.conf
+
+if there is no error then the configuration file is working
+
+#named-checkzone lab.local /var/named/forward.lab
+
+if it says ok then there is no error
+
+#named-checkzone lab.local /var/named/reverse.lab
+
+#ip addr show enp0s3
+
+go to this file now
+
+#cd /etc/NetworkManager/system-connections
+
+#vi enp0s3.nmconnection
+
+in the [ipv4] section insert this
+
+DNS=your computer ip address
+
+now save it
+
+and restart network manager
+
+#systemctl restart NetworkManager
+
+why? when you change your network manager you get the DNS information back
+
+Now go to root
+
+#cd
+
+#vi /etc/resolv.conf
+
+here you will have nameserver which will be your default gateway and change it to your ip address and save
+
+now nslookup and dig are for same purpose but dig gives more info
+
+#dig masterdns.lab.local
+
+#nslookup masterdns.lab.local
+
+#nslookup clienta.lab.local
+
+#nslookup 192.168.1.240
+
+#cd /var/named
+
+#vi forward.lab
+
+add at the end
+
+clientc 192.168.1.242
+
+#nslookup clientc.lab.local
+
+#systemctl restart named
+
+to get the nslookup otherwise it won’t show up
+
