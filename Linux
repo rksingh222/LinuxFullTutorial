@@ -3328,3 +3328,17 @@ clientc 192.168.1.242
 
 to get the nslookup otherwise it won’t show up
 
+DNS LookUp: Linux
+Command used for DNS Lookup
+
+nslookup
+
+dig
+
+#nslookup http://www.google.com
+
+you will get an ip address and just hit that ip address in your browser you will get the same site
+
+#dig http://www.google.com
+
+
