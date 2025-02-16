@@ -3342,3 +3342,40 @@ you will get an ip address and just hit that ip address in your browser you will
 #dig http://www.google.com
 
 
+NTP -Network Time Protocol: Linux
+the purpose of this command is to synchronise your computers time to another server in case you loose your time.
+
+file to configure ntp is
+
+/etc/ntp.conf
+
+the service to run ntpd is
+
+#systemctl restart ntpd (restart ntpd , start ntpd)
+
+first check whether ntp is there or not
+
+#rpm -qa | grep ntp
+
+#yum install ntp
+
+modify ntp.conf file
+
+#vi /etc/ntp.conf
+
+put server as 8.8.8.8
+
+save your file
+
+#systemctl start ntpd
+
+#systemctl status ntpd
+
+another way to check is
+
+#ps -ef | grep ntp
+
+#ntpq ( is the command that will bring you to the interactive mode)
+
+ntpq > peers (to check from where your google server is coming from)
+
