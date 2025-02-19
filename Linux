@@ -3379,3 +3379,77 @@ another way to check is
 
 ntpq > peers (to check from where your google server is coming from)
 
+chronyd: Linux
+chronyd is for time synchronisation. package name that is required to install is chronyd.
+
+configuration file is = /etc/chronyd.conf
+
+log file = /var/log/chrony
+
+how to restart or start the chronyd service
+
+#systemctl start/restart chronyd
+
+the program command is chronyc which executes which ntp server your time is connected with.
+
+#su –
+
+#rpm -qa | grep chronyd or check with chrony
+
+if you do not have a chrony packaged installed then run
+
+#yum install chrony
+
+now we have to do configuration
+
+#vi /etc/chrony.conf
+
+there will be ntp server which it will be connected to
+
+it will have server0, server1 , server 2 above server1 we will add it with
+
+server 8.8.8.8
+
+save it
+
+now you need to start the service and we need to check if the service is running
+
+#systemctl status chronyd
+
+please do not run ntp and chronyd at the same time
+
+check the status of ntpd if its running so stop it
+
+#systemctl status ntpd
+
+#systemctl stop ntpd
+
+#systemctl status ntpd
+
+and disable it
+
+#systemctl disable ntpd
+
+now start chronyd
+
+#systemctl status chronyd
+
+#systemctl enable chronyd
+
+now hit chronyc and it will enter in the program mode
+
+#chronyc
+
+> sources
+
+the first server is the one is how it getting its time from
+
+to quit
+
+>quit
+
+once you modify your service file you have to restart it
+
+#systemctl restart chronyd
+
+
